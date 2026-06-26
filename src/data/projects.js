@@ -1,4 +1,5 @@
 import aihubPreview from '../assets/previews/aihub.png'
+import aiHudPreview from '../assets/previews/ai-hud.png'
 import bizproPreview from '../assets/previews/bizpro.png'
 import freshlifePreview from '../assets/previews/freshlife.png'
 import smartworkPreview from '../assets/previews/smartwork.png'
@@ -159,6 +160,58 @@ export const projects = [
     ],
     image: aihubPreview,
     visual: 'ai',
+  },
+  {
+    id: 'ai-hud',
+    slug: 'ai-hud',
+    path: '/projects/ai-hud',
+    routeName: 'AI 数据驾驶舱',
+    menuName: 'NeuroPulse AI 驾驶舱',
+    type: 'AI HUD 数据大屏',
+    brand: 'NeuroPulse',
+    badge: 'AI OPS HUD',
+    accent: '#35e3c4',
+    accentSoft: '#dffcf7',
+    ink: '#d8f7ff',
+    surface: '#0f2231',
+    heroTitle: '面向 AI 产品的实时运营驾驶舱',
+    heroTitleLines: ['面向 AI 产品的', '实时运营驾驶舱'],
+    heroText: '用深色 HUD、模型监控、流量地图和 ECharts 动态图表包装成人工智能数据大屏原型，适合售卖 AI 管理后台、模型运营平台、数据可视化源码。',
+    primaryCta: '查看数据舱',
+    secondaryCta: '模型监控',
+    tags: ['模型调用监控', '用户增长分析', '算力成本追踪', '全球流量热区'],
+    stats: [
+      ['4.82m', '今日 Token 消耗'],
+      ['98.7%', '模型服务可用率'],
+      ['12.4k', '活跃会话'],
+      ['42ms', '平均响应延迟'],
+    ],
+    strengths: [
+      ['实时模型监控', '展示调用量、延迟、错误率、Token 成本和模型健康度。', 'Activity'],
+      ['可视化经营数据', '用 ECharts 呈现增长趋势、渠道分布、转化漏斗和留存曲线。', 'ChartNoAxesCombined'],
+      ['AI 任务调度', '适合包装智能客服、内容生成、Agent 工作流和企业知识库。', 'Workflow'],
+      ['安全运营态势', '把敏感词拦截、异常请求、审计日志和权限策略放到同一屏。', 'ShieldCheck'],
+    ],
+    features: [
+      ['模型吞吐趋势', '分钟级展示调用峰值、失败重试和响应性能。'],
+      ['用户行为画像', '对比新访客、复访客户、订阅转化和高价值动作。'],
+      ['成本与收益看板', '把推理成本、套餐收入、余额消耗和利润率放在同屏。'],
+      ['全球访问态势', '用地图视觉和节点高亮强化 AI 平台的技术感。'],
+    ],
+    process: ['接入埋点', '配置模型', '观察指标', '优化策略'],
+    cases: [
+      ['AI 客服平台', '拦截风险对话 18,420 次'],
+      ['知识库助手', '企业文档命中率提升 36%'],
+      ['内容生成工具', '付费转化率提升 21.8%'],
+      ['Agent 调度台', '自动化任务完成率 94%'],
+    ],
+    pricing: [
+      ['展示版源码', '399', ['HUD 首页', 'ECharts 图表', '响应式适配']],
+      ['运营台源码', '799', ['模型监控', '数据大屏', '任务队列']],
+      ['定制交付', '议价', ['行业换肤', '接口接入', '部署协助']],
+    ],
+    image: aiHudPreview,
+    visual: 'ai-hud',
   },
   {
     id: 'freshlife',

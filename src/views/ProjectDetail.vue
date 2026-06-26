@@ -36,6 +36,7 @@ import {
   Workflow,
   Zap,
 } from '@lucide/vue'
+import HudChart from '../components/HudChart.vue'
 import { getProjectBySlug } from '../data/projects'
 
 const iconMap = {
@@ -64,6 +65,170 @@ const pageStyle = computed(() => ({
   '--ink': project.value.ink,
   '--surface': project.value.surface,
 }))
+
+const hudTextStyle = {
+  color: 'rgba(216, 247, 255, 0.72)',
+  fontFamily: 'Inter, Microsoft YaHei, sans-serif',
+}
+
+const hudAxisStyle = {
+  axisLabel: { color: 'rgba(216, 247, 255, 0.62)' },
+  axisLine: { lineStyle: { color: 'rgba(117, 151, 172, 0.38)' } },
+  axisTick: { show: false },
+  splitLine: { lineStyle: { color: 'rgba(117, 151, 172, 0.18)' } },
+}
+
+const hudLineOption = {
+  backgroundColor: 'transparent',
+  color: ['#35e3c4', '#8da2ff'],
+  tooltip: {
+    trigger: 'axis',
+    backgroundColor: 'rgba(9, 20, 32, 0.92)',
+    borderColor: 'rgba(53, 227, 196, 0.32)',
+    textStyle: { color: '#e8fbff' },
+  },
+  legend: {
+    bottom: 0,
+    itemWidth: 10,
+    itemHeight: 10,
+    textStyle: hudTextStyle,
+    data: ['模型调用', '成功响应'],
+  },
+  grid: { left: 36, right: 16, top: 22, bottom: 42 },
+  xAxis: {
+    type: 'category',
+    boundaryGap: false,
+    data: ['00:00', '04:00', '08:00', '12:00', '16:00', '20:00', '24:00'],
+    ...hudAxisStyle,
+  },
+  yAxis: {
+    type: 'value',
+    ...hudAxisStyle,
+  },
+  series: [
+    {
+      name: '模型调用',
+      type: 'line',
+      smooth: true,
+      symbolSize: 7,
+      data: [420, 520, 760, 1380, 1120, 1560, 1840],
+      areaStyle: { color: 'rgba(53, 227, 196, 0.16)' },
+      lineStyle: { width: 3 },
+    },
+    {
+      name: '成功响应',
+      type: 'line',
+      smooth: true,
+      symbolSize: 7,
+      data: [390, 500, 720, 1290, 1060, 1480, 1750],
+      areaStyle: { color: 'rgba(141, 162, 255, 0.1)' },
+      lineStyle: { width: 3 },
+    },
+  ],
+}
+
+const hudBarOption = {
+  backgroundColor: 'transparent',
+  color: ['#35e3c4', '#6079ff'],
+  tooltip: {
+    trigger: 'axis',
+    backgroundColor: 'rgba(9, 20, 32, 0.92)',
+    borderColor: 'rgba(53, 227, 196, 0.32)',
+    textStyle: { color: '#e8fbff' },
+  },
+  legend: {
+    bottom: 0,
+    textStyle: hudTextStyle,
+    data: ['CPU', 'Memory'],
+  },
+  grid: { left: 34, right: 12, top: 18, bottom: 42 },
+  xAxis: {
+    type: 'category',
+    data: ['A1', 'A2', 'B1', 'B2', 'C1', 'C2', 'D1', 'D2'],
+    ...hudAxisStyle,
+  },
+  yAxis: {
+    type: 'value',
+    ...hudAxisStyle,
+  },
+  series: [
+    {
+      name: 'CPU',
+      type: 'bar',
+      barWidth: 10,
+      data: [62, 76, 54, 88, 72, 93, 67, 84],
+      itemStyle: { borderRadius: [4, 4, 0, 0] },
+    },
+    {
+      name: 'Memory',
+      type: 'bar',
+      barWidth: 10,
+      data: [48, 60, 68, 73, 56, 70, 78, 66],
+      itemStyle: { borderRadius: [4, 4, 0, 0] },
+    },
+  ],
+}
+
+const hudRadarOption = {
+  backgroundColor: 'transparent',
+  color: ['#35e3c4'],
+  tooltip: {
+    backgroundColor: 'rgba(9, 20, 32, 0.92)',
+    borderColor: 'rgba(53, 227, 196, 0.32)',
+    textStyle: { color: '#e8fbff' },
+  },
+  radar: {
+    radius: '64%',
+    splitNumber: 4,
+    axisName: { color: 'rgba(216, 247, 255, 0.72)' },
+    splitLine: { lineStyle: { color: 'rgba(117, 151, 172, 0.22)' } },
+    splitArea: { areaStyle: { color: ['rgba(53, 227, 196, 0.04)', 'rgba(96, 121, 255, 0.03)'] } },
+    axisLine: { lineStyle: { color: 'rgba(117, 151, 172, 0.26)' } },
+    indicator: [
+      { name: '生成', max: 100 },
+      { name: '检索', max: 100 },
+      { name: '安全', max: 100 },
+      { name: '成本', max: 100 },
+      { name: '速度', max: 100 },
+    ],
+  },
+  series: [
+    {
+      type: 'radar',
+      data: [{ value: [92, 86, 94, 76, 88], name: 'AI 运营能力' }],
+      areaStyle: { color: 'rgba(53, 227, 196, 0.18)' },
+      lineStyle: { width: 3 },
+      symbolSize: 6,
+    },
+  ],
+}
+
+const hudDonutOption = {
+  backgroundColor: 'transparent',
+  color: ['#35e3c4', '#48a3ff', '#8d73ff', '#183244'],
+  tooltip: {
+    trigger: 'item',
+    backgroundColor: 'rgba(9, 20, 32, 0.92)',
+    borderColor: 'rgba(53, 227, 196, 0.32)',
+    textStyle: { color: '#e8fbff' },
+  },
+  series: [
+    {
+      type: 'pie',
+      radius: ['54%', '76%'],
+      center: ['50%', '50%'],
+      avoidLabelOverlap: true,
+      label: { color: 'rgba(216, 247, 255, 0.72)' },
+      labelLine: { lineStyle: { color: 'rgba(216, 247, 255, 0.28)' } },
+      data: [
+        { value: 44, name: '对话' },
+        { value: 27, name: '写作' },
+        { value: 18, name: 'Agent' },
+        { value: 11, name: '其它' },
+      ],
+    },
+  ],
+}
 </script>
 
 <template>
@@ -390,6 +555,119 @@ const pageStyle = computed(() => ({
 
     <section id="pricing" class="ai-pricing">
       <article v-for="(plan, index) in project.pricing" :key="plan[0]" :class="{ hot: index === 1 }">
+        <span>{{ plan[0] }}</span>
+        <strong>¥{{ plan[1] }}</strong>
+        <p>{{ plan[2].join(' / ') }}</p>
+      </article>
+    </section>
+  </article>
+
+  <article v-else-if="project.id === 'ai-hud'" id="top" class="ai-hud-page" :style="pageStyle">
+    <header class="hud-topbar">
+      <div class="hud-brand">
+        <span class="hud-mark"><BrainCircuit :size="18" /></span>
+        <strong>{{ project.brand }}</strong>
+        <small>{{ project.badge }}</small>
+      </div>
+      <nav aria-label="AI HUD 页面栏目">
+        <a href="#hud-overview">Overview</a>
+        <a href="#hud-models">Models</a>
+        <a href="#hud-charts">Charts</a>
+        <a href="#pricing">Source</a>
+      </nav>
+      <div class="hud-status">
+        <span></span>
+        Live system
+      </div>
+    </header>
+
+    <section class="hud-hero">
+      <div class="hud-hero-copy">
+        <span class="hud-kicker">AI command center prototype</span>
+        <h1>
+          <span>人工智能运营中枢</span>
+          <span>模型、流量、成本</span>
+          <span>一屏监控</span>
+        </h1>
+        <p>{{ project.heroText }}</p>
+        <div class="hud-actions">
+          <a href="#hud-charts">查看 ECharts 图表 <ArrowRight :size="17" /></a>
+          <a href="#pricing">源码报价</a>
+        </div>
+      </div>
+      <div class="hud-visual">
+        <img :src="project.image" alt="AI HUD 数据驾驶舱视觉图" />
+        <div class="hud-scanline"></div>
+      </div>
+    </section>
+
+    <section id="hud-overview" class="hud-stat-grid">
+      <article v-for="(stat, index) in project.stats" :key="stat[1]">
+        <span>0{{ index + 1 }}</span>
+        <strong>{{ stat[0] }}</strong>
+        <small>{{ stat[1] }}</small>
+      </article>
+    </section>
+
+    <section id="hud-charts" class="hud-dashboard">
+      <article class="hud-panel hud-panel--wide">
+        <div class="hud-panel-head">
+          <span>MODEL THROUGHPUT</span>
+          <strong>模型调用与成功响应</strong>
+        </div>
+        <HudChart :option="hudLineOption" />
+      </article>
+
+      <article class="hud-panel">
+        <div class="hud-panel-head">
+          <span>CAPABILITY RADAR</span>
+          <strong>AI 运营能力雷达</strong>
+        </div>
+        <HudChart :option="hudRadarOption" />
+      </article>
+
+      <article class="hud-panel">
+        <div class="hud-panel-head">
+          <span>COMPUTE LOAD</span>
+          <strong>算力负载趋势</strong>
+        </div>
+        <HudChart :option="hudBarOption" />
+      </article>
+
+      <article class="hud-panel">
+        <div class="hud-panel-head">
+          <span>SCENE SHARE</span>
+          <strong>AI 场景占比</strong>
+        </div>
+        <HudChart :option="hudDonutOption" />
+      </article>
+    </section>
+
+    <section id="hud-models" class="hud-model-grid">
+      <article v-for="(item, index) in project.strengths" :key="item[0]">
+        <component :is="[Activity, ChartNoAxesCombined, Workflow, ShieldCheck][index]" :size="24" />
+        <span>MODEL / 0{{ index + 1 }}</span>
+        <h3>{{ item[0] }}</h3>
+        <p>{{ item[1] }}</p>
+      </article>
+    </section>
+
+    <section class="hud-intel">
+      <div>
+        <span class="hud-kicker">Traffic intelligence</span>
+        <h2>比普通 AI 页面更像“可交付后台”</h2>
+        <p>客户看源码原型时，图表、图片、数据流和模块关系会比纯文案更有说服力。这一页把 AI 产品包装成可运营、可监控、可扩展的后台系统。</p>
+      </div>
+      <div class="hud-intel-list">
+        <article v-for="item in project.cases" :key="item[0]">
+          <strong>{{ item[0] }}</strong>
+          <span>{{ item[1] }}</span>
+        </article>
+      </div>
+    </section>
+
+    <section id="pricing" class="hud-source-grid">
+      <article v-for="(plan, index) in project.pricing" :key="plan[0]" :class="{ featured: index === 1 }">
         <span>{{ plan[0] }}</span>
         <strong>¥{{ plan[1] }}</strong>
         <p>{{ plan[2].join(' / ') }}</p>
